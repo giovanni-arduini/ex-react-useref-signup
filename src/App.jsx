@@ -53,7 +53,13 @@ function App() {
           onChange={(e) => setUsername(e.target.value)}
         />
 
-        <input type="password" name="password" placeholder="Password" />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
         <select
           value={spec}
