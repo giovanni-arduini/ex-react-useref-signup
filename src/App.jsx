@@ -12,6 +12,28 @@ function App() {
   const numbers = "0123456789";
   const symbols = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
 
+  const isUsernameValid = useMemo(() => {
+    const validChar = username.split("").every((c) => {
+      letters.includes(c.toLowerCase()) || numbers.includes(c);
+    });
+    return validChar && username.trim().length >= 6;
+  }, [username]);
+
+  const isPasswordValid = useMemo(() => {
+    return (
+      password.trim().length >= 8 &&
+      password.split("").some((c) => letters.includes(c)) &&
+      password.split("").some((c) => numbers.includes(c)) &&
+      password.split("").some((c) => symbols.includes(c))
+    );
+  }, [password]);
+
+  const isDescriptionValid = useMemo(() => {
+    return (
+      comments.trim().length > 100 && comments.trim().length < 1000, [comments]
+    );
+  }, [comments]);
+
   function handleSubmit(e) {
     e.preventDefault();
     if (
@@ -60,15 +82,6 @@ function App() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-
-        {username.length >= 6 ? (
-          <p style={{ color: "green" }}>Username valido</p>
-        ) : (
-          <p style={{ color: "red" }}>
-            Lo username deve contenere almeno sei caratteri, senza spazi o
-            simboli
-          </p>
-        )}
 
         <input
           type="password"
