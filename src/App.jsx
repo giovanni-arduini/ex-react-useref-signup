@@ -8,6 +8,10 @@ function App() {
   const [experienceYears, setExperienceYears] = useState("");
   const [comments, setComments] = useState("");
 
+  const letters = "abcdefghijklmnopqrstuvwxyz";
+  const numbers = "0123456789";
+  const symbols = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
+
   function handleSubmit(e) {
     e.preventDefault();
     if (
@@ -37,10 +41,14 @@ function App() {
         onSubmit={handleSubmit}
         style={{ display: "flex", flexDirection: "column" }}
       >
+        {/* <label for="nome_completo">Inserisci il tuo nome completo</label> */}
         <input
           type="text"
           name="nome_completo"
+          id="nome_completo"
           placeholder="Nome completo"
+          // required
+          // minLength={6}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -52,6 +60,15 @@ function App() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+
+        {username.length >= 6 ? (
+          <p style={{ color: "green" }}>Username valido</p>
+        ) : (
+          <p style={{ color: "red" }}>
+            Lo username deve contenere almeno sei caratteri, senza spazi o
+            simboli
+          </p>
+        )}
 
         <input
           type="password"
@@ -89,6 +106,15 @@ function App() {
           value={comments}
           onChange={(e) => setComments(e.target.value)}
         />
+
+        {comments.trim().length > 100 && comments.length < 1000 ? (
+          <p style={{ color: "green" }}>Commento valido</p>
+        ) : (
+          <p style={{ color: "red" }}>
+            Il commento deve contenere tra i 100 e i 1000 caratteri
+          </p>
+        )}
+
         <button onClick={handleSubmit}>Invia Form</button>
       </form>
     </>
