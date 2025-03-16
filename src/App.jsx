@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 function App() {
   const [name, setName] = useState("");
@@ -14,8 +14,9 @@ function App() {
 
   const isUsernameValid = useMemo(() => {
     const validChar = username.split("").every((c) => {
-      letters.includes(c.toLowerCase()) || numbers.includes(c);
+      return letters.includes(c.toLowerCase()) || numbers.includes(c);
     });
+    console.log(validChar);
     return validChar && username.trim().length >= 6;
   }, [username]);
 
@@ -82,6 +83,14 @@ function App() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+
+        {username.trim() && (
+          <p style={{ color: isUsernameValid ? "green" : "red" }}>
+            {isUsernameValid
+              ? "Username valido"
+              : "Lo username deve contenere almeno 6 caratteri alfanumerici"}
+          </p>
+        )}
 
         <input
           type="password"
