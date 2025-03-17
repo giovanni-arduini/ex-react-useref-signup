@@ -100,6 +100,14 @@ function App() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
+        {password.trim() && (
+          <p style={{ color: isPasswordValid ? "green" : "red" }}>
+            {isPasswordValid
+              ? "Password valida"
+              : "La password deve contenere almeno 8 caratteri, una lettera, un numero e un simbolo"}
+          </p>
+        )}
+
         <select
           value={spec}
           onChange={(e) => setSpec(e.target.value)}
