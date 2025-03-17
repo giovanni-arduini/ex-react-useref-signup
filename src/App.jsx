@@ -1,11 +1,13 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 
 function App() {
-  const [name, setName] = useState("");
+  const nameRef = useRef("");
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [spec, setSpec] = useState("");
-  const [experienceYears, setExperienceYears] = useState("");
+
+  const specRef = useRef();
+  const experienceYearsRef = useRef();
   const [comments, setComments] = useState("");
 
   const letters = "abcdefghijklmnopqrstuvwxyz";
@@ -35,6 +37,11 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    const name = name.current.value;
+    const spec = specRef.current.value;
+    const experienceYears = experienceYearsRef.current.value;
+
     if (
       experienceYears < 0 ||
       spec === "" ||
@@ -55,6 +62,10 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    nameRef.current.focus();
+  }, []);
+
   return (
     <>
       <form
@@ -68,10 +79,7 @@ function App() {
           name="nome_completo"
           id="nome_completo"
           placeholder="Nome completo"
-          // required
-          // minLength={6}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          ref={nameRef}
         />
 
         <input
@@ -106,12 +114,7 @@ function App() {
           </p>
         )}
 
-        <select
-          value={spec}
-          onChange={(e) => setSpec(e.target.value)}
-          name="specs"
-          id="specs"
-        >
+        <select ref={specRef} name="specs" id="specs">
           <option value="">-- Seleziona la specializzazione --</option>
           <option value="frontend">Frontend</option>
           <option value="backend">Backend</option>
@@ -123,8 +126,7 @@ function App() {
           name="experience_years"
           id="experience_years"
           placeholder="Anni di esperienza"
-          value={experienceYears}
-          onChange={(e) => setExperienceYears(e.target.value)}
+          ref={experienceYearsRef}
         />
 
         <input
