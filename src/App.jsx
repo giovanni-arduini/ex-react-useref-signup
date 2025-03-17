@@ -30,9 +30,7 @@ function App() {
   }, [password]);
 
   const isDescriptionValid = useMemo(() => {
-    return (
-      comments.trim().length > 100 && comments.trim().length < 1000, [comments]
-    );
+    return comments.trim().length > 100 && comments.trim().length < 1000;
   }, [comments]);
 
   function handleSubmit(e) {
@@ -100,7 +98,7 @@ function App() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        {password.trim() && (
+        {password && (
           <p style={{ color: isPasswordValid ? "green" : "red" }}>
             {isPasswordValid
               ? "Password valida"
@@ -137,11 +135,11 @@ function App() {
           onChange={(e) => setComments(e.target.value)}
         />
 
-        {comments.trim().length > 100 && comments.length < 1000 ? (
-          <p style={{ color: "green" }}>Commento valido</p>
-        ) : (
-          <p style={{ color: "red" }}>
-            Il commento deve contenere tra i 100 e i 1000 caratteri
+        {comments.trim() && (
+          <p style={{ color: isDescriptionValid ? "green" : "red" }}>
+            {isDescriptionValid
+              ? "Commento inserito correttamente"
+              : "Il commento deve contenere tra i 100 e i 1000 caratteri"}
           </p>
         )}
 
