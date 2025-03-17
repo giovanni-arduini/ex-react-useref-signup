@@ -35,6 +35,16 @@ function App() {
     return comments.trim().length > 100 && comments.trim().length < 1000;
   }, [comments]);
 
+  function resetForm(e) {
+    e.preventDefault();
+    setUsername("");
+    setPassword("");
+    setComments("");
+    nameRef.current.value = "";
+    specRef.current.value = "";
+    experienceYearsRef.current.value = "";
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -145,7 +155,10 @@ function App() {
           </p>
         )}
 
-        <button onClick={handleSubmit}>Invia Form</button>
+        <button type="submit" onClick={handleSubmit}>
+          Invia Form
+        </button>
+        <button onClick={resetForm}>Reset</button>
       </form>
     </>
   );
